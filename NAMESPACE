@@ -1,0 +1,58 @@
+useDynLib(flowFP)
+
+importClassesFrom(methods, ANY, factor, list, logical, matrix, missing,
+                 numeric, vector)
+
+importMethodsFrom(Biobase, description, exprs, "exprs<-", pData,
+                 "pData<-", sampleNames, "sampleNames<-")
+
+importMethodsFrom(methods, show)
+
+importMethodsFrom(flowCore, colnames, parameters)
+
+#importMethodsFrom(flowViz, plot)
+
+importFrom(Biobase, anyMissing)
+
+importFrom(graphics, image, layout, lines, par, points, rect,
+          segments, text, plot)
+
+importFrom(grDevices, col2rgb, hsv, rgb2hsv)
+
+importFrom(methods, "@<-", as, getMethod, is, new, signature)
+
+importFrom(stats, sd)
+
+
+exportClasses(flowFPModel,
+              flowFP,
+              flowFPPlex)
+
+exportMethods(show,
+              summary,
+              name,
+              tags,
+              sampleNames,
+              sampleClasses,
+             "sampleClasses<-",
+              hasClasses,
+              counts,
+              nFeatures,
+              nInstances,
+              binBoundary,
+              nRecursions,
+             "nRecursions<-",
+              length,
+             "length<-",
+              parameters,
+              plot,
+              append,
+             "[",
+             "[[")
+
+export(flowFPModel,
+       is.flowFPModel,
+       flowFP,
+       is.flowFP,
+       flowFPPlex,
+       is.flowFPPlex)
