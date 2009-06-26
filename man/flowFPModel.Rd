@@ -61,6 +61,11 @@ to create a model of the \emph{flowSet} provided to \link{flowFP}.
 
 }
 
+\note{
+If a \link[flowCore:flowSet-class]{flowSet} is provided as input, it is internally
+collapsed to a \link[flowCore:flowSet-class]{flowFrame} for binning.
+}
+
 \value{
   An object of type \link[flowFPModel-class]{flowFPModel} is returned.
 }
