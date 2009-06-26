@@ -11,7 +11,8 @@
 ## Constructor for flowFPModel.
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 flowFPModel <- function(fcs, name="Default Model", parameters=NULL, 
-                        nRecursions='auto', dequantize=TRUE, sampleSize=NULL)
+                        nRecursions='auto', dequantize=TRUE, sampleSize=NULL,
+                        excludeTime=TRUE)
 {
 
 	checkType(fcs, c("flowSet", "flowFrame"), "flowFPModel")
@@ -56,7 +57,7 @@ flowFPModel <- function(fcs, name="Default Model", parameters=NULL,
 		}
 	} 
 
-	parameters = parse_parameters(colnames(fcs), parameters)
+	parameters = parse_parameters(colnames(fcs), parameters, excludeTime)
 	
 	if (nRecursions == 'auto') {
 		nRecursions = (log2(training_events) %/% 1) - 3 # at least 8 events / bin

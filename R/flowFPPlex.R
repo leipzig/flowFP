@@ -71,9 +71,10 @@ validateFingerprintsForPlex <- function(plex, fingerprints) {
 	}
 	
 	if (length(plex) == 0)
-		return (TRUE) # first fingerprint is always valid
+		prototypeFP = fingerprints[[1]]
+	else
+		prototypeFP = plex[[1]]
 		
-	prototypeFP = plex[[1]]
 	tmp = sampleNames(prototypeFP)
 	tmpHasClasses = hasClasses(prototypeFP)
 	tmpClasses = sampleClasses(prototypeFP)

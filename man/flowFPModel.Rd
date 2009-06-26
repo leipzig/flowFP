@@ -7,7 +7,7 @@ A constructor for objects of type \link{flowFPModel-class}.
 }
 \usage{
 flowFPModel(fcs, name="Default Model", parameters=NULL, nRecursions="auto", 
-            dequantize=TRUE, sampleSize=NULL)
+            dequantize=TRUE, sampleSize=NULL, excludeTime=TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -28,6 +28,10 @@ flowFPModel(fcs, name="Default Model", parameters=NULL, nRecursions="auto",
                     \emph{x} is used.  Setting this to a smaller
                     number will speed up processing, at the cost of accuracy.}
   \item{name}{A descriptive name assigned to the model.}
+  \item{excludeTime}{If TRUE (default) and no parameters are specified, the model 
+                     constructor will atempt to exclude the time parameter from
+                     consideration when building the model. The time parameter is
+                     identified as have the label 'time', matched ignoring case.}
 
 }
 \details{

@@ -26,8 +26,14 @@ checkType <- function(object, appropriate_types, funcName) {
 }
 
 
-parse_parameters <-function(names, params){
+parse_parameters <-function(names, params, excludeTime){
 
+	if (is.null(names))
+		stop("'parameter names' can not be null for a flowFrame or flowSet.\n", call.=FALSE)
+		
+	if (excludeTime)
+		names = grep("^Time$", names, value = TRUE, ignore.case = TRUE, invert=TRUE)
+		
 	if(is.null(params))
 		return(names)
 		

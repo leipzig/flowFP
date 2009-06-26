@@ -8,7 +8,8 @@
 ##
 
 plotModel <-function(x, parameters=NULL, alpha=1, border="gray", 
-                     showbins=1:nFeatures(x), ylim=NULL, xlim=NULL, main="Model", ...){
+                     showbins=1:nFeatures(x), ylim=NULL, xlim=NULL, main="Model",
+                     bin_cols=NULL, ...){
 
 	parameters = getDefaultParameters(x, parameters)
 	check_plot_args(x, fs=NULL, highlight=NULL, showbins=showbins)
@@ -27,12 +28,13 @@ plotModel <-function(x, parameters=NULL, alpha=1, border="gray",
   		xlim = limits$xlim
   		
 	plot('', type='l', ylim=ylim, xlim=xlim, xlab=xlab, ylab=ylab, main=main)
-	plotBinBoundaries(x, y=NULL, parameters, alpha, border, showbins, ...)
+	plotBinBoundaries(x, y=NULL, parameters, alpha, border, showbins, bin_cols, ...)
 	
 }
 
-plotModelWithDots<-function(x, y, parameters=NULL, alpha=.5, border="gray", 
-                            showbins=1:nFeatures(x), main="Model", ...){
+plotModelWithDots<-function(x, y, parameters=NULL, alpha=.3, border="gray", 
+                            showbins=1:nFeatures(x), main="Model",
+                            bin_cols=NULL, ...) {
 
 	parameters = getDefaultParameters(x, parameters)
 	
@@ -46,12 +48,12 @@ plotModelWithDots<-function(x, y, parameters=NULL, alpha=.5, border="gray",
   	length(plotParamNames) = 2
   	ffplot = getMethod("plot", signature("flowFrame", "character"))
 	ffplot(y, plotParamNames, smooth=FALSE, main=main, ...)
-	plotBinBoundaries(x, y=y, parameters, alpha, border, showbins, ...)
+	plotBinBoundaries(x, y=y, parameters, alpha, border, showbins, bin_cols, ...)
 }
 
 
 plotBinBoundaries <-function(x, y=NULL, parameters=NULL, alpha=1, border="gray", 
-                     showbins=1:nFeatures(x), pch='.', cex=1, ...) {
+                     showbins=1:nFeatures(x), bin_cols=NULL, point_cols=NULL, pch='.', cex=1,  ...) {
 
 	if (!is.flowFPModel(x))
 		all_tags = unlist(tags(x))
@@ -65,8 +67,11 @@ plotBinBoundaries <-function(x, y=NULL, parameters=NULL, alpha=1, border="gray",
 	xright = vector(mode="numeric", length=len)
 	ytop =vector(mode="numeric", length=len)
 	
-	bin_cols = binColorLut(nFeatures(x), showbins, alpha=alpha)
-	point_cols = binColorLut(nFeatures(x), showbins, alpha=1)
+	if (is.null(bin_cols))
+		bin_cols = binColorLut(nFeatures(x), showbins, alpha=alpha)
+
+	if (is.null(point_cols))
+		point_cols = binColorLut(nFeatures(x), showbins, alpha=1)
 
 	if (!is.null(y))
 		y = as(y, "flowFrame")

@@ -95,7 +95,7 @@ draw_wedge <- function(x1, y1, x2, y2, red_limit) {
   }
   image(xpos, ypos, t(wedge), col=col, add=TRUE)
   text(x1, y1, "0.0", pos=1)
-  text (x2, y1, sprintf("<%.1f", red_limit), pos=1)
+  text (x2, y1, sprintf("%.1f", red_limit), pos=1)
   rect (x1, y1, x2, y2)
 }
 
