@@ -67,7 +67,7 @@ collapsed to a \link[flowCore:flowSet-class]{flowFrame} for binning.
 }
 
 \value{
-  An object of type \link[flowFPModel-class]{flowFPModel} is returned.
+  An object of type \code{flowFPModel} is returned.
 }
 
 \references{

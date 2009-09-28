@@ -26,7 +26,7 @@ that allow the user to compare and contrast instances, using the \code{flowFPMod
 as a sort of basis representation, akin for example to trigonometric functions in a 
 Fourier Transform.
 
-This package is closely integrated with \link[flowCore:00Index]{flowCore}.
+This package is closely integrated with \code{flowCore}.
 You will want to become familiar with it in order to effectively use \pkg{flowFP}.
 }
 
@@ -122,7 +122,7 @@ Herb Holyst <\email{holyst@mail.med.upenn.edu}>, Wade Rogers <\email{rogersw@mai
 }
 
 \seealso{ 
-\link[flowCore:00Index]{flowCore}, \link[flowViz:00Index]{flowViz}
+flowCore, flowViz
 }
 
 \examples{
