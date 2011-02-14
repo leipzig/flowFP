@@ -1,6 +1,6 @@
 ##
 ## Package: flowFP
-## File: AllGeneric.R
+## File: AllGenerics.R
 ## Author: Herb Holyst
 ##
 ##  Copyright (C) 2009 by University of Pennsylvania,

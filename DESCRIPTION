@@ -22,7 +22,7 @@ Collate: AllClasses.R
          plot-tangle.R 
          plot-stack.R 
          plot-grid.R 
-         AllGeneric.R
+         AllGenerics.R
 LazyLoad: TRUE
 License: Artistic-2.0
 biocViews: Bioinformatics, Flowcytometry, CellBasedAssays, Clustering, Visualization
