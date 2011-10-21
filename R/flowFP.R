@@ -36,12 +36,7 @@ flowFP <- function(fcs, model=NULL, sampleClasses=NULL, ...) {
         }
         
         if (!is.null(sampleClasses)) {
-            fp@sampleClasses = factor(sampleClasses)
-            if (length(fp@sampleClasses) != length(sampleNames(fcs))) {
-                stop("you have specified", length(fp@sampleClasses), "Classnames with",
-                     length(sampleNames(fcs)), "files. There has to be a 1 to 1 mapping\n",
-                     call.=FALSE)
-            }
+			sampleClasses(fp) <- sampleClasses
 		}	
 	} else {
 		if(model@dequantize) {

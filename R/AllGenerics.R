@@ -448,7 +448,23 @@ if (!isGeneric("sampleClasses<-")) {
 setMethod("sampleClasses<-",
 	signature=signature(object="flowFP"),
 	definition=function(object, value) {
-		object@sampleClasses = value
+		if (!is.factor(value)) {
+			value = factor(value)
+		}
+		if (length(value) == 0 || (length(value) == length(object@sampleNames))) {
+			object@sampleClasses = value
+		} else {
+			stop("The number of sampleClasses must equal the number of fingerprints." ,
+    		     call.=FALSE)
+		}
+		return(object)
+	}
+)
+
+setMethod("sampleClasses<-",
+	signature=signature(object="flowFPPlex"),
+	definition=function(object, value) {
+		object@fingerprints = lapply(object@fingerprints, "sampleClasses<-", value)
 		return (object)
 	}
 )

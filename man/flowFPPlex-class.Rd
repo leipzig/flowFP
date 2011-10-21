@@ -19,7 +19,7 @@ Objects should be created by calling the constructor function \link{flowFPPlex}.
     \item{counts}{Concatenates all of the counts for all of the fingerprints in
                     the set.}
     \item{length}{returns the number of fingerprints in the set.}
-    \item{nInstancesnbins}{returns the number of flowFrames used to create this
+    \item{nInstances}{returns the number of flowFrames used to create this
                            fingerprint.}
     \item{nFeatures}{returns the total number of features from the collection of
                      fingerprints.}

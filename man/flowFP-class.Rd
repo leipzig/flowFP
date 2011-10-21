@@ -51,14 +51,18 @@ Class \linkS4class{flowFPModel}, directly.
 }
 \section{Methods}{
   \describe{
-    \item{[}{\code{signature(x = "flowFP", i = "ANY")}: ... }
-    \item{counts}{\code{signature(object = "flowFP")}: ... }
-    \item{length}{\code{signature(x = "flowFP")}: ... }
-    \item{nbins}{\code{signature(object = "flowFP")}: ... }
-    \item{sampleClasses}{\code{signature(object = "flowFP")}: ... }
-    \item{tags}{\code{signature(object = "flowFP")}: ... }
-    \item{show}{Shows the contents of the fingerprint object.}
-    \item{summary}{Gives a summary of the fingerprint object.}
+    \item{\code{[}}{Used to select a subset of a fingerprint object. }
+    \item{\code{counts}}{ Returns the counts matrix of a fingerprint object.  See \link{counts}. }
+    \item{\code{length}}{ Returns the number of instances in the fingerprint object. }
+    \item{\code{nbins}}{ Returns the number of bins (equal to 2^nRecursions) in the fingerprint object. }
+    \item{\code{sampleClasses}}{ Returns the sampleClasses slot of the fingerprint object. }
+    \item{\code{sampleClasses<-}}{ Set method for the sampleClasses
+					slot of the fingerprint object.  Note that the length of the provided object must be
+					equal to the number of instances in the fingerprint object.  If the provided object
+					is not a factor it will be coerced to one. }
+    \item{\code{tags}}{ Returns the \code{tags} slot.  See \link{tags}. }
+    \item{\code{show}}{ Shows the contents of the fingerprint object.}
+    \item{\code{summary}}{Gives a summary of the fingerprint object.}
 	 }
 }
 \references{
