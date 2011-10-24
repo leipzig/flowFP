@@ -49,8 +49,6 @@ void split_bin(CMATRIX *fcs, CIVECTOR *tags, CIVECTOR *lut, int split_axis,
 double find_split_val(CMATRIX *fcs, int split_axis, CIVECTOR *lut) {
 
 	int col_idx = split_axis - 1;
-	if (col_idx < 0 || split_axis > fcs->ncols)
-		printf("find_split_val: split_axis = %d\n", split_axis);
 	double *vals = extract_col(NULL, fcs, col_idx, lut);
 	double med = median(vals, lut->len);
 	free(vals);

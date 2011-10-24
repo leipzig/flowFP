@@ -3,6 +3,7 @@
 \alias{sampleClasses}
 \alias{sampleClasses<-}
 \alias{sampleClasses<-,flowFP-method}
+\alias{sampleClasses<-,flowFPPlex-method}
 \alias{sampleClasses-methods}
 \alias{sampleClasses,flowFP-method}
 \alias{sampleClasses,flowFPPlex-method}
