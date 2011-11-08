@@ -176,13 +176,13 @@ dequantize <- function(x, alpha=1e-8) {
 	fcs <- x
   	if (is(fcs, "flowFrame")) {
   		if (nrow(fcs) > 0) {
-	  	  ofs <- seq(alpha, alpha * nrow(fcs), by=alpha)
+	  	  ofs <- seq(alpha, alpha * nrow(fcs), length.out=nrow(fcs))
 		  exprs(fcs) <- exprs(fcs) + ofs
 		}
 	} else {
 		for(i in 1:length(fcs)) {
 			if (nrow(fcs[[i]]) > 0) {
-				ofs <- seq(alpha, alpha * nrow(fcs[[i]]), by=alpha)
+				ofs <- seq(alpha, alpha * nrow(fcs[[i]]), length.out=nrow(fcs[[i]]))
 			    exprs(fcs[[i]]) <- exprs(fcs[[i]]) + ofs
 			}
 		}
