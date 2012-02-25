@@ -88,7 +88,7 @@ draw_wedge <- function(x1, y1, x2, y2, red_limit) {
   ypos = seq(from=y1, to=y2, length.out=ny + 1)
   xpos = seq(from=x1, to=x2, length.out=nx + 1)
   wedge = matrix(rep(c(1:nx), ny), ncol=nx, nrow=ny, byrow=TRUE)
-  col = vector(len=nx)
+  col = vector(length=nx)
  
   for (i in 1:nx) {
     col[i] = getCellColor (red_limit*i/nx, red_limit)

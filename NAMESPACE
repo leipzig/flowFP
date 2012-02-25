@@ -14,8 +14,10 @@ importMethodsFrom(flowCore, colnames, parameters)
 
 importFrom(Biobase, anyMissing)
 
+importFrom(BiocGenerics, plot, summary)
+
 importFrom(graphics, image, layout, lines, par, points, rect,
-          segments, text, plot)
+          segments, text)
 
 importFrom(grDevices, col2rgb, hsv, rgb2hsv)
 

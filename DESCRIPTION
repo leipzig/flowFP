@@ -1,12 +1,13 @@
 Package: flowFP
 Type: Package
 Title: Fingerprinting for Flow Cytometry
-Version: 1.13.2
+Version: 1.13.3
 Author: Herb Holyst <holyst@mail.med.upenn.edu>, Wade Rogers <rogersw@mail.med.upenn.edu>
 Date: 2009
 Maintainer: Herb Holyst <holyst@mail.med.upenn.edu>
 Depends: R (>= 2.10), flowCore, flowViz
-Imports: Biobase, flowCore, flowViz, graphics, grDevices, methods, stats
+Imports: Biobase, BiocGenerics (>= 0.1.6), flowCore, flowViz, graphics, grDevices, methods, stats
+Suggests: RUnit
 Description: Fingerprint generation of flow cytometry data, used to facilitate
              the application of machine learning and datamining tools for flow cytometry.
 Collate: AllClasses.R 
