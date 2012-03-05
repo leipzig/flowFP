@@ -14,7 +14,7 @@ importMethodsFrom(flowCore, colnames, parameters)
 
 importFrom(Biobase, anyMissing)
 
-importFrom(BiocGenerics, plot, summary)
+importFrom(stats4, plot, summary)
 
 importFrom(graphics, image, layout, lines, par, points, rect,
           segments, text)
