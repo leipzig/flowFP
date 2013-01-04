@@ -21,7 +21,7 @@ importFrom(graphics, image, layout, lines, par, points, rect,
 
 importFrom(grDevices, col2rgb, hsv, rgb2hsv)
 
-importFrom(methods, "@<-", as, getMethod, is, new, signature)
+importFrom(methods, as, getMethod, is, new, signature)
 
 importFrom(stats, sd)
 
