@@ -6,6 +6,8 @@ importClassesFrom(methods, ANY, factor, list, logical, matrix, missing,
 importMethodsFrom(Biobase, description, exprs, "exprs<-", pData,
                  "pData<-", sampleNames, "sampleNames<-")
 
+importMethodsFrom(BiocGenerics, counts)
+
 importMethodsFrom(methods, show)
 
 importMethodsFrom(flowCore, colnames, parameters)
