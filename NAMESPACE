@@ -12,7 +12,7 @@ importMethodsFrom(methods, show)
 
 importMethodsFrom(flowCore, colnames, parameters)
 
-#importMethodsFrom(flowViz, plot)
+importMethodsFrom(flowViz, plot)
 
 importFrom(Biobase, anyMissing)
 

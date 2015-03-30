@@ -4,23 +4,22 @@
 #   Philadelphia, PA USA. All rights reserved.                         #
 #                                                                      #
 ########################################################################
-LIBS = -L/netusr/lib64/R/lib -lR
+LIBS = -L$$R_HOME/Libraries -lR
 
 .PHONY: utest clean add
 
 CC=gcc
-IDIR =..
-DEPS = $(wildcard ${IDIR}/*.h) 
+IDIR = ..
+DEPS = ${IDIR}/flowFP.h
 
-SRCS =$(wildcard *.c)
-ALL_TEST_FUNCS = $(wildcard test_*.c)
+ALL_TEST_FUNCS = test_example.c test_idx_lut.c test_median.c test_variance.c
+SRCS = CuTest.c ${ALL_TEST_FUNCS}
 OBJS = $(SRCS:%.c=%.o)
 
-APP_SRCS = $(wildcard ../*.c)
-_APP_SRCS = $(subst ../,,$(APP_SRCS))    # subsitutes ../ with an empty string, and then changes .c with .o
-APP_OBJS = $(_APP_SRCS:%.c=%.o)
+APP_SRCS = ../flowFP.c ../init.c ../split_utils.c
+APP_OBJS = flowFP.o init.o split_utils.o
 
-CFLAGS = -g3 -D_CUTEST_ -std=gnu99 -I/netusr/lib64/R/include  -I/usr/local/include
+CFLAGS = -g3 -D_CUTEST_ -std=gnu99 -I$$R_HOME/Headers  -I/usr/local/include
 
 Alltests utest: ${APP_OBJS} ${OBJS}
 	./make-tests.sh ${ALL_TEST_FUNCS} >Alltests.c
@@ -41,3 +40,4 @@ add:
 	-@if [ -d CSV ] ; then cvs add test_*.c; fi
 
 # END
+
