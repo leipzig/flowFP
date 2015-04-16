@@ -1,0 +1,12 @@
+CHANGES IN VERSION 1.10.0
+-------------------------
+
+1) We now require that length of sampleClasses be the same as the number of
+instances in the flowFP object.  The documentation indicated that, but 
+the code didn't enforce it.
+
+2) Fixed a bug regarding setting sampleClasses for a flowFPPlex.  It erroneously assigned classes to only the first member of the plex.
+
+3) Setting sampleClasses for a fp or a pled to NULL or to a zero-length factor now results in removing sampleClasses from the fp or plex.
+
+4) Cleaned up documentation for flowFP-class and flowFPPlex-class.
