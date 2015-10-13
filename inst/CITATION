@@ -1,0 +1,21 @@
+## -*- R -*-
+citHeader("To cite the R package 'flowFP' in publications use:")
+
+desc <- packageDescription("flowFP")
+year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", desc$Date)
+vers <- paste ("R package version", desc$Version)
+
+citEntry(entry  = "Manual",
+         title  = "flowFP: Fingerprinting for Flow Cytometry",
+         author = personList(
+                 person(first="Herb", last="Holyst",
+                        email="holyst@mail.med.upenn.edu"),
+                 person(first="Wade", last="Rogers",
+                        email="rogersw@mail.med.upenn.edu")),
+         year = year,
+         note = vers,
+         textVersion = paste(
+         "Herb Holyst and Wade Rogers (", year,
+         "). flowFP: Fingerprinting for Flow Cytometry. ",
+         vers, ".", sep="")
+         )
