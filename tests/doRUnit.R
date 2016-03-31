@@ -4,7 +4,7 @@ if(require("RUnit", quietly=TRUE)) {
   ## --- Setup ---
  
   pkg <- "flowFP"
-  if(Sys.getenv("RCMDCHECK") == "FALSE") {
+  if(Sys.getenv("RCMDCHECK") == "") {
     ## Path to unit tests for standalone running under Makefile (not R CMD check)
     ## PKG/tests/unitTests
     path <- file.path(getwd(), "unitTests")
