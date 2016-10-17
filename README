@@ -1,0 +1,12 @@
+Automake notes:
+
+	The bootstrap file is configure.ac
+
+- run aclocal
+- run autoconf
+
+You should see no output, but two files and a directory get created  
+
+	aclocal.m4  autom4te.cache/, configure
+	
+	
