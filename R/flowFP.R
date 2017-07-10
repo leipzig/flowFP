@@ -39,7 +39,9 @@ flowFP <- function(fcs, model=NULL, sampleClasses=NULL, ...) {
         	#matrix of samples by bins, with number of events in that bin
         	fp@counts[i,] = count_events(fp@tags[[i]], numFeatures)
         	
-        	fp@medians[[i]]<-median_events(fcs[[i]]@exprs,fp@tags[[i]])
+        	fp@medians[[i]]<-do.call(rbind,lapply(split(seq_len(nrow(fs[[i]]@exprs)), fp@tags[[i]], drop = FALSE), function(ind) apply(fs[[i]]@exprs[ind, , drop = FALSE], 2, median)))
+        	
+        	#median_events(fcs[[i]]@exprs,fp@tags[[i]])
         }
         if (!is.null(sampleClasses)) {
 			sampleClasses(fp) <- sampleClasses
@@ -122,32 +124,23 @@ getFPCounts <- function(object, transformation=c("raw", "normalized", "log2norm"
 		return (log2(counts))
 }
 
+#https://github.com/cran/Epi/blob/284519e34f51ce2371c445d6cec49cd7bce570c0/R/clogistic.R
 splitMatrix <- function (x, f, drop=FALSE) {
   lapply(split(seq_len(nrow(x)), f, drop = drop),
          function(ind) x[ind, , drop = FALSE])
 }
 
+splitMatrixMedians <- function (x, f, drop=FALSE) {
+  do.call(rbind,lapply(split(seq_len(nrow(x)), f, drop = drop), function(ind) apply(x[ind, , drop = FALSE], 2, median)))
+  }
 
 #fcs_events is a matrix for that sample
 #tags is the bin index for each event
 median_events<-function(fcs_events,tags){
-  fcs_events_df<-as.data.frame(fcs_events)
-
-  events_by_tag<-split(fcs_events_df, tags, drop = FALSE)
-  return(NULL)
-  medians<-sapply(events_by_tag,function(df){as.matrix(apply(df, 2, length))})
+  splitMatrixMedians(fcs_events, tags, drop = FALSE)
+  #events_by_tag<-splitMatrix(fcs_events, tags, drop = FALSE)
   
-  #medians<-sapply(events_by_tag,length)
-  rownames(medians)<-colnames(fcs_events_df)
-  
-  
-  #medians<-sapply(events_by_tag,length)
-  #cl <- makeCluster(getOption("cl.cores", 16))
-  #medians<-parSapply(cl,X=events_by_tag,FUN=function(df){as.matrix(apply(df, 2, median))})
-  #stopCluster(cl)
-  
-  #microbenchmark( sapply(events_by_tag,function(df){as.matrix(apply(df, 2, median))}) )
-  
-
-  return(medians)
+  #medians<-do.call(rbind,lapply(events_by_tag,function(df){apply(df, 2, median)}))
+  #return(NULL)
+  #return(medians)
 }
