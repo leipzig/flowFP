@@ -27,14 +27,20 @@ flowFP <- function(fcs, model=NULL, sampleClasses=NULL, ...) {
     if(is(fcs,"flowSet")) {
         fp@counts = matrix(as.integer(0), nrow=length(fcs), ncol=numFeatures)
         fp@sampleNames = sampleNames(fcs)
+        
+        benchmarks<-list()
         for(i in 1:length(fcs)) {
             if(model@dequantize) {
                 fcs[[i]] = dequantize(fcs[[i]])
             }
+          
+          #list by samples, each with all events for that sample with indices indicating which bin they belong to
         	fp@tags[[i]] = tag_events(fcs[[i]]@exprs, model)
+        	#matrix of samples by bins, with number of events in that bin
         	fp@counts[i,] = count_events(fp@tags[[i]], numFeatures)
+        	
+        	fp@medians[[i]]<-median_events(fcs[[i]]@exprs,fp@tags[[i]])
         }
-        
         if (!is.null(sampleClasses)) {
 			sampleClasses(fp) <- sampleClasses
 		}	
@@ -114,4 +120,34 @@ getFPCounts <- function(object, transformation=c("raw", "normalized", "log2norm"
 		return (counts)
 	else
 		return (log2(counts))
+}
+
+splitMatrix <- function (x, f, drop=FALSE) {
+  lapply(split(seq_len(nrow(x)), f, drop = drop),
+         function(ind) x[ind, , drop = FALSE])
+}
+
+
+#fcs_events is a matrix for that sample
+#tags is the bin index for each event
+median_events<-function(fcs_events,tags){
+  fcs_events_df<-as.data.frame(fcs_events)
+
+  events_by_tag<-split(fcs_events_df, tags, drop = FALSE)
+  return(NULL)
+  medians<-sapply(events_by_tag,function(df){as.matrix(apply(df, 2, length))})
+  
+  #medians<-sapply(events_by_tag,length)
+  rownames(medians)<-colnames(fcs_events_df)
+  
+  
+  #medians<-sapply(events_by_tag,length)
+  #cl <- makeCluster(getOption("cl.cores", 16))
+  #medians<-parSapply(cl,X=events_by_tag,FUN=function(df){as.matrix(apply(df, 2, median))})
+  #stopCluster(cl)
+  
+  #microbenchmark( sapply(events_by_tag,function(df){as.matrix(apply(df, 2, median))}) )
+  
+
+  return(medians)
 }
