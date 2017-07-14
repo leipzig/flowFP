@@ -50,6 +50,32 @@ setMethod("counts",
 )
 
 ## =========================================================================
+## binCentroids Methods.
+## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+if (!isGeneric("binCentroids")) {
+  setGeneric("binCentroids", function(fp, fcs, ...) standardGeneric("binCentroids"))
+}
+
+setMethod("binCentroids",
+          signature=signature(fp="flowFP",fcs="flowFrame"),
+          definition=getFPbinCentroids)
+
+setMethod("binCentroids",
+          signature=signature(fp="flowFP",fcs="flowSet"),
+          definition=getFPbinCentroids)
+
+#setMethod("binCentroids",
+##          signature=signature(object="flowFPPlex"),
+#          definition=function(object, ...) {
+#            binCentroids = matrix(0, nrow=nInstances(object), ncol=0)
+##            for(fp in object@fingerprints)
+#              binCentroids = cbind(binCentroids, binCentroids(fp, ...))
+#            return(binCentroids)
+#          }
+#)
+
+
+## =========================================================================
 ## Indexing Methods. [ [[
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

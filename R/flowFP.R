@@ -27,14 +27,21 @@ flowFP <- function(fcs, model=NULL, sampleClasses=NULL, ...) {
     if(is(fcs,"flowSet")) {
         fp@counts = matrix(as.integer(0), nrow=length(fcs), ncol=numFeatures)
         fp@sampleNames = sampleNames(fcs)
+        
+        benchmarks<-list()
         for(i in 1:length(fcs)) {
             if(model@dequantize) {
                 fcs[[i]] = dequantize(fcs[[i]])
             }
+          
+          #list by samples, each with all events for that sample with indices indicating which bin they belong to
         	fp@tags[[i]] = tag_events(fcs[[i]]@exprs, model)
+        	#matrix of samples by bins, with number of events in that bin
         	fp@counts[i,] = count_events(fp@tags[[i]], numFeatures)
+        	
+        	
+        	#median_events(fcs[[i]]@exprs,fp@tags[[i]])
         }
-        
         if (!is.null(sampleClasses)) {
 			sampleClasses(fp) <- sampleClasses
 		}	
@@ -114,4 +121,24 @@ getFPCounts <- function(object, transformation=c("raw", "normalized", "log2norm"
 		return (counts)
 	else
 		return (log2(counts))
+}
+
+
+# fcs_events is a matrix for that sample
+# tags is the bin index for each event
+# a flowSet will report tags as a list, this can be safely unlisted regardless
+getFPbinCentroids<-function(fp,fcs){
+  if(is(fcs,"flowSet")) {
+    fcs <- as(fcs, "flowFrame")
+  }
+  
+  
+  if (nrow(fcs) != length(unlist(fp@tags))) {
+    stop(paste("ERROR: the number of events in the flowFrame or flowSet (",nrow(fcs),") does not match the number of events in the flowFP model (",length(unlist(fp@tags)),") for this FCS data\n"))
+  }
+
+  
+  binCentroids<-do.call(rbind,lapply(split(seq_len(nrow(fcs@exprs)), as.factor(unlist(fp@tags)), drop = FALSE), function(ind) apply(fcs@exprs[ind, , drop = FALSE], 2, median)))
+
+  return(binCentroids)
 }
