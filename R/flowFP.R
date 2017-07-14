@@ -39,7 +39,6 @@ flowFP <- function(fcs, model=NULL, sampleClasses=NULL, ...) {
         	#matrix of samples by bins, with number of events in that bin
         	fp@counts[i,] = count_events(fp@tags[[i]], numFeatures)
         	
-        	fp@medians[[i]]<-do.call(rbind,lapply(split(seq_len(nrow(fs[[i]]@exprs)), fp@tags[[i]], drop = FALSE), function(ind) apply(fs[[i]]@exprs[ind, , drop = FALSE], 2, median)))
         	
         	#median_events(fcs[[i]]@exprs,fp@tags[[i]])
         }
@@ -124,23 +123,22 @@ getFPCounts <- function(object, transformation=c("raw", "normalized", "log2norm"
 		return (log2(counts))
 }
 
-#https://github.com/cran/Epi/blob/284519e34f51ce2371c445d6cec49cd7bce570c0/R/clogistic.R
-splitMatrix <- function (x, f, drop=FALSE) {
-  lapply(split(seq_len(nrow(x)), f, drop = drop),
-         function(ind) x[ind, , drop = FALSE])
-}
 
-splitMatrixMedians <- function (x, f, drop=FALSE) {
-  do.call(rbind,lapply(split(seq_len(nrow(x)), f, drop = drop), function(ind) apply(x[ind, , drop = FALSE], 2, median)))
+# fcs_events is a matrix for that sample
+# tags is the bin index for each event
+# a flowSet will report tags as a list, this can be safely unlisted regardless
+getFPbinCentroids<-function(fp,fcs){
+  if(is(fcs,"flowSet")) {
+    fcs <- as(fcs, "flowFrame")
+  }
+  
+  
+  if (nrow(fcs) != length(unlist(fp@tags))) {
+    stop(paste("ERROR: the number of events in the flowFrame or flowSet (",nrow(fcs),") does not match the number of events in the flowFP model (",length(unlist(fp@tags)),") for this FCS data\n"))
   }
 
-#fcs_events is a matrix for that sample
-#tags is the bin index for each event
-median_events<-function(fcs_events,tags){
-  splitMatrixMedians(fcs_events, tags, drop = FALSE)
-  #events_by_tag<-splitMatrix(fcs_events, tags, drop = FALSE)
   
-  #medians<-do.call(rbind,lapply(events_by_tag,function(df){apply(df, 2, median)}))
-  #return(NULL)
-  #return(medians)
+  binCentroids<-do.call(rbind,lapply(split(seq_len(nrow(fcs@exprs)), as.factor(unlist(fp@tags)), drop = FALSE), function(ind) apply(fcs@exprs[ind, , drop = FALSE], 2, median)))
+
+  return(binCentroids)
 }
